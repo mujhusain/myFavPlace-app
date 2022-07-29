@@ -28,6 +28,14 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "cameraPermission": "The App nee you camera acess to take a photo of places."
+        }
+      ]
+    ]
   }
 }
