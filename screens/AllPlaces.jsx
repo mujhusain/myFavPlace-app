@@ -7,17 +7,17 @@ function AllPlaces({ route }) {
   const [placeList, setPlaceList] = useState([]);
   const isFocused = useIsFocused();
 
+  async function loadPlaces() {
+    const places = await fetchPlaces();
+    setPlaceList(places);
+  }
   useEffect(() => {
-    async function loadPlaces() {
-      const places = await fetchPlaces();
-      setPlaceList(places);
-    }
     if (isFocused) {
       loadPlaces();
     }
   }, [isFocused]);
 
-  return <PlacesList places={placeList} />;
+  return <PlacesList loadPlaces={loadPlaces} places={placeList} />;
 }
 
 export default AllPlaces;

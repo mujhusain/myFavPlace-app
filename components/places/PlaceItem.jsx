@@ -1,7 +1,13 @@
 import { Image, Pressable, Text, View, StyleSheet } from "react-native";
 import { Colors } from "../../constants/colors";
+import { deletePlace } from "../../util/database";
+import IconButton from "../ui/IconButton";
 
-function PlaceItem({ place, onSelect }) {
+function PlaceItem({ place, onSelect,loadPlaces }) {
+  async function deletePlaceHandler(){
+    await deletePlace(place.id);
+    loadPlaces()
+  }
   return (
     <Pressable
       style={({ pressed }) => [styles.item, pressed && styles.pressed]}
@@ -9,8 +15,13 @@ function PlaceItem({ place, onSelect }) {
     >
       <Image style={styles.image} source={{ uri: place.imageUri }} />
       <View style={styles.info}>
+        <View >
         <Text style={styles.title}>{place.title}</Text>
         <Text style={styles.address}>{place.address}</Text>
+        </View>
+        <View>
+          <IconButton name="trash" color={Colors.primary800} size={25} onPress={deletePlaceHandler} >DELETE</IconButton>
+        </View>
       </View>
     </Pressable>
   );
@@ -43,6 +54,8 @@ const styles = StyleSheet.create({
   info: {
     flex: 2,
     padding: 12,
+    flexDirection:'row',
+    justifyContent:'space-between'
   },
   title: {
     fontSize: 18,

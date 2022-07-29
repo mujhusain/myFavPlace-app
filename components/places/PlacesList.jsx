@@ -3,7 +3,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Colors } from "../../constants/colors";
 import PlaceItem from "./PlaceItem";
 
-function PlacesList({ places }) {
+function PlacesList({ places,loadPlaces }) {
   const navigation=useNavigation();
 
   function onSelectPlaceHandler(id){
@@ -18,12 +18,13 @@ function PlacesList({ places }) {
       </View>
     );
   }
+ 
   return (
     <View style={styles.list}>
       <FlatList
         data={places}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <PlaceItem place={item} onSelect={onSelectPlaceHandler} />}
+        renderItem={({ item }) => <PlaceItem loadPlaces={loadPlaces} place={item} onSelect={onSelectPlaceHandler} />}
       />
     </View>
   );
